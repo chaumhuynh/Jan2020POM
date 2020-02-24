@@ -12,13 +12,23 @@
 
 	</listeners>
 
-	<test name="Hub Spot Functional Test - Firefox">
+	<!-- <test name="Hub Spot Functional Test - Firefox" thread-count = "3" parallel = "methods"> -->
+	
+	<test name="Hub Spot Functional Test - Firefox" >
 		<parameter name="browser" value="firefox" />
 		<classes>
 			<class name="com.qa.hubspot.tests.HomePageTest" />
 		</classes>
 	</test>
 
+	<!-- <test name="Hub Spot Functional Test - Chrome" thread-count = "3" parallel = "classes">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="com.qa.hubspot.tests.LoginPageTest" />
+			<class name="com.qa.hubspot.tests.HomePageTest" />
+		</classes>
+	</test> -->
+	
 	<test name="Hub Spot Functional Test - Chrome">
 		<parameter name="browser" value="chrome" />
 		<classes>

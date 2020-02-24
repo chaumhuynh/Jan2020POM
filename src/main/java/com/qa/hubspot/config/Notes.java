@@ -119,6 +119,8 @@ public class Notes {
 	
 	
 	/* PARALLEL EXECUTION
+	 * 3 options for parallel in TestNG: tests, classes, methods
+	 
 	   - we can have multiple test block in the test runner xml file and specify browser in <parameter> tag 
 	   - we also specify at the suite level thread count (for example if w have 2 browsers, we put thread-count = 2) 
 	     and parallel = tests (meaning at test level / inside the test block)
@@ -134,6 +136,19 @@ public class Notes {
 				</classes>
 		</test>
 	
+	   - we can have all the methods within a test block executed in parallel
+	   	<test name="Hub Spot Functional Test - Firefox" thread-count = "3" parallel = "methods">
+
+	   - we can have each classes within a test block executed in parallel
+	   
+	   <test name="Hub Spot Functional Test - Chrome" thread-count = "3" parallel = "classes">
+			<parameter name="browser" value="chrome" />
+				<classes>
+					<class name="com.qa.hubspot.tests.LoginPageTest" />
+					<class name="com.qa.hubspot.tests.HomePageTest" />
+				</classes>
+	   </test>
+	   
 	 */
 	
 }
