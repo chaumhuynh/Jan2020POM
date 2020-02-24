@@ -2,7 +2,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Hub Spot Regression Suite]">
   <listeners>
-    <listener class-name="com.qa.hubspot.listeners.ExtentReportListener"/>
     <listener class-name="com.qa.hubspot.listeners.TestAllureListener"/>
   </listeners>
   <test thread-count="5" name="Hub Spot Functional Regression Test(failed)">
@@ -11,12 +10,16 @@
         <methods>
           <include name="verifyLoggedInUserTest"/>
           <include name="tearDown"/>
+          <include name="verifyHomePageHeaderTest"/>
+          <include name="verifyHomePageTitleTest"/>
           <include name="setUp"/>
         </methods>
       </class> <!-- com.qa.hubspot.tests.HomePageTest -->
       <class name="com.qa.hubspot.tests.LoginPageTest">
         <methods>
+          <include name="verifyLoginPageTitleTest"/>
           <include name="setUp"/>
+          <include name="verifySignUpLinkTest"/>
           <include name="tearDown"/>
           <include name="loginTest"/>
         </methods>

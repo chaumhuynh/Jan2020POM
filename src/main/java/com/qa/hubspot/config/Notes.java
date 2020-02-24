@@ -118,5 +118,22 @@ public class Notes {
 	 */
 	
 	
+	/* PARALLEL EXECUTION
+	   - we can have multiple test block in the test runner xml file and specify browser in <parameter> tag 
+	   - we also specify at the suite level thread count (for example if w have 2 browsers, we put thread-count = 2) 
+	     and parallel = tests (meaning at test level / inside the test block)
+	   - then, in test class, at setup method, we use @Parameters annotation	
+		
+	   <suite name="Hub Spot Parallel Execution" thread-count = "2" parallel = "tests">
+		...
+	   
+	   <test name="Hub Spot Functional Test - Chrome">
+			<parameter name="browser" value="chrome" />
+				<classes>
+					<class name="com.qa.hubspot.tests.HomePageTest" />
+				</classes>
+		</test>
+	
+	 */
 	
 }

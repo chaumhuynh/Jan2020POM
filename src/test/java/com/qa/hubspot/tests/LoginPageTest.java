@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.qa.hubspot.base.BasePage;
@@ -16,14 +17,16 @@ import com.qa.hubspot.util.AppConstants;
 import com.qa.hubspot.util.Credentials;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 
 //Allure Report: Behavior section - have multiple annotations
 //at class level we have @Epic and @Feature; for each tc we can have @Description and @Severity
 
-//@Epic("HARP-1523: Create Login Page Feature")
-//@Feature("HARP-1525: Create test for login page on HubSpot")
+@Epic("HARP-1523: Create Login Page Feature")
+@Feature("HARP-1525: Create test for login page on HubSpot")
 public class LoginPageTest {
 
 	WebDriver driver;
@@ -32,15 +35,24 @@ public class LoginPageTest {
 	LoginPage loginPage ;
 	Credentials userCred;
 	
-	@BeforeTest(alwaysRun=true)
-	public void setUp() {
+	@BeforeTest(alwaysRun = true)
+	@Parameters(value = { "browser" })
+	public void setUp(String browser) {
+		String browserName = null;
 		basePage = new BasePage();
 		prop = basePage.init_properties();
-		String browserName = prop.getProperty("browser");
+
+		// if browser configuration comes from testNG.xml, then use that - otherwise use browser from .properties file
+		if (browser.equals(null)) {
+			browserName = prop.getProperty("browser");
+		} else {
+			browserName = browser;
+		}
+		
 		driver = basePage.init_driver(browserName);
 		driver.get(prop.getProperty("url"));
-		
-		loginPage = new LoginPage(driver);  //call constructor of LoginPage
+
+		loginPage = new LoginPage(driver); // call constructor of LoginPage
 		userCred = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 	}
 	
