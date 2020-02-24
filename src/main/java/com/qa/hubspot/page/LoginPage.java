@@ -4,14 +4,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.qa.hubspot.base.BasePage;
+import com.qa.hubspot.util.AppConstants;
 import com.qa.hubspot.util.Credentials;
 import com.qa.hubspot.util.ElementUtil;
+import com.qa.hubspot.util.JavaScriptUtil;
 
 public class LoginPage extends BasePage{
 
 	WebDriver driver;
 	ElementUtil elementUtil;
 	Credentials userCreds;
+	JavaScriptUtil jsUtil;
 	
 	//1. By locators
 	
@@ -25,17 +28,25 @@ public class LoginPage extends BasePage{
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
 		elementUtil = new ElementUtil(driver);
+		jsUtil = new JavaScriptUtil(driver);
 	}	
 	
 	//2. Page actions / features
 	
 	public String getPageTitle() {
 //		return driver.getTitle();
+		elementUtil.waitForTitlePresent(AppConstants.LOGIN_PAGE_TITLE);
 		return elementUtil.doGetPageTitle();
 	}
 	
+	public String getPageTitleByJS() {
+		return jsUtil.getTitleByJS();
+	}
+	
+	
 	public boolean checkSignUpLink() {
 //		return driver.findElement(signUpLink).isDisplayed();
+		elementUtil.waitForElementPresent(signUpLink);
 		return elementUtil.doIsDisplayed(signUpLink);
 	}
 	
@@ -44,7 +55,7 @@ public class LoginPage extends BasePage{
 	//(when click on login button, home page loads so the login method should return a new object of home page)
 
 	public HomePage doLogIn(Credentials userCred) {		
-//		elementUtil.waitForElementPresent(emailId);
+		elementUtil.waitForElementPresent(emailId);
 		elementUtil.doSendKeys(emailId, userCred.getAppUsername());
 		elementUtil.doSendKeys(password, userCred.getAppPassword());
 		elementUtil.doClick(loginButton);

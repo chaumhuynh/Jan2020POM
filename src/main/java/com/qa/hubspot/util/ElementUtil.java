@@ -1,18 +1,48 @@
 package com.qa.hubspot.util;
 
+import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ElementUtil {
+import com.qa.hubspot.base.BasePage;
+
+public class ElementUtil extends BasePage{
 
 	WebDriver driver;
-
+	WebDriverWait wait;
+	JavaScriptUtil jsUtil;
+	Properties prop;
+	
 	// constructor
 	public ElementUtil(WebDriver driver) {
+		prop = super.prop;
 		this.driver = driver;
+		wait = new WebDriverWait (driver, AppConstants.DEFAULT_TIME_OUT);
+		jsUtil = new JavaScriptUtil(driver);
 	}
 
+	
+	public boolean waitForTitlePresent(String title) {
+		wait.until(ExpectedConditions.titleIs(title));
+		return true;
+	}
+	
+	
+	public boolean waitForElementPresent(By locator) {
+		wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		return true;
+	}
+	
+	//Visibility means that the element is not only displayed but also has a height and width that is greater than 0
+	public boolean waitForElementVisible(By locator) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		return true;
+	}
+	
 	public String doGetPageTitle() {
 		try {
 		return driver.getTitle();
@@ -31,7 +61,11 @@ public class ElementUtil {
 	public WebElement getElement(By locator) {
 		WebElement element = null;
 		try {
+//			if(waitForElementPresent(locator));   >>create dependency (wait is applied within getElement method)
 			element = driver.findElement(locator);
+			if (highlightElement) {
+				jsUtil.flash(element);
+			}
 		} catch (Exception e) {
 			System.out.println("Some exception has occured while creating the web element.");
 		}

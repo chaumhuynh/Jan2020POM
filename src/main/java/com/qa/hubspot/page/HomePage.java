@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.qa.hubspot.base.BasePage;
+import com.qa.hubspot.util.AppConstants;
 import com.qa.hubspot.util.ElementUtil;
 
 public class HomePage extends BasePage{
@@ -14,6 +15,9 @@ public class HomePage extends BasePage{
 	By header = By.cssSelector("h1.private-page__title");
 	By accountName = By.cssSelector("span.account-name");
 	
+	By mainContactsLink = By.id("nav-primary-contacts-branch");
+	By childContactsLink = By.id("nav-secondary-contacts");		
+	
 	//create constructor
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
@@ -21,6 +25,7 @@ public class HomePage extends BasePage{
 	}
 	
 	public String getHomePageTitle() {
+		elementUtil.waitForTitlePresent(AppConstants.HOME_PAGE_TITLE);
 		return elementUtil.doGetPageTitle();
 	}
 	
@@ -31,4 +36,20 @@ public class HomePage extends BasePage{
 	public String getLoggedInUserAccountName() {
 		return elementUtil.doGetText(accountName);
 	}
+	
+	public void clickOnContacts() {
+		elementUtil.waitForElementPresent(mainContactsLink);
+		elementUtil.doClick(mainContactsLink);
+		
+		elementUtil.waitForElementPresent(childContactsLink);
+		elementUtil.doClick(childContactsLink);
+	}
+	
+	public ContactsPage goToContactsPage() {
+		clickOnContacts();
+		return new ContactsPage(driver);
+	}
+	
+	
+	
 }
