@@ -149,6 +149,11 @@ public class Notes {
 				</classes>
 	   </test>
 	   
+	   
+	   NOTES: parallel execution using TestNG is not Grid (execute on remote machines)
+	   
+	   When we execute from Maven, Maven will execute from xml file
+	   
 	 */
 	
 }

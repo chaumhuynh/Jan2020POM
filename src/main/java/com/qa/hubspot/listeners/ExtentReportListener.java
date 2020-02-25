@@ -26,6 +26,7 @@ public class ExtentReportListener extends BasePage implements ITestListener {
 	private static final String FILE_NAME = "TestExecutionReport.html";
 
 	private static ExtentReports extent = init();
+	//must use ThreadLocal - to give results for parallel mode
 	public static ThreadLocal<ExtentTest> test = new ThreadLocal<ExtentTest>();
 
 	private static ExtentReports init() {
